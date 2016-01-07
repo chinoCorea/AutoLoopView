@@ -15,15 +15,18 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		let datas = ["ruby", "swift", "python", "objective-c", "git"]
+		
+		
 		loopView.numberOfFocus { () -> Int in
-			return 3
+			return datas.count
 		}
 		
 		loopView.focusAtIndex { (index) -> UIView in
 			let label = UILabel()
-			label.text = "\(index)"
+			label.text = datas[index]
 			label.textAlignment = .Center
-			label.backgroundColor = UIColor(hue: CGFloat(index * 360 / 2)/360.0,
+			label.backgroundColor = UIColor(hue: CGFloat(index * 360 / datas.count)/360.0,
 									 saturation: 1.0,
 									 brightness: 1.0,
 										  alpha: 1.0)
@@ -32,7 +35,7 @@ class ViewController: UIViewController {
 		}
 		
 		loopView.touchUpFocus { (index) -> Void in
-			print(index)
+			print(datas[index])
 		}
 		
 		loopView.checkUpSchedule { (schedule) -> Void in
