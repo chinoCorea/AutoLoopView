@@ -10,7 +10,7 @@ import UIKit
 
 public class ATLoopView: UIView {
 
-	@IBInspectable var autoLoopDuration: Double = 7.0
+	@IBInspectable private var loopDuration: Double = 7.0
 	
 	private let collectionView = UICollectionView(frame: CGRectZero,
 								   collectionViewLayout: UICollectionViewFlowLayout())
@@ -18,10 +18,15 @@ public class ATLoopView: UIView {
 	private var numberOfFocus: (() -> Int)?
 	private var focusAtIndex: (Int -> UIView)?
 	private var touchUpFocus: (Int -> Void)?
-	private var checkUpSchedule: (Int -> Void)?
+	private var checkUpSchedule: (CGFloat -> Void)?
 	
+	private var timer: NSTimer!
+	private var amount: Int {
+		return numberOfFocus?() ?? 0
+	}
 	
-	override public init(frame: CGRect) {
+	public init(frame: CGRect, loopDuration: NSTimeInterval) {
+		self.loopDuration = loopDuration
 		super.init(frame: frame)
 		initialize()
 	}
@@ -41,6 +46,7 @@ public class ATLoopView: UIView {
 		layout.minimumLineSpacing = 0.0
 		
 		collectionView.frame = self.bounds
+		collectionView.scrollEnabled = amount > 1
 	}
 
 	private func initialize() {
@@ -55,7 +61,8 @@ public class ATLoopView: UIView {
 		
 		self.addSubview(collectionView)
 		
-		NSTimer.scheduledTimerWithTimeInterval(autoLoopDuration, target: self, selector: "scrollToNext", userInfo: nil, repeats: true)
+		timer = NSTimer(timeInterval: loopDuration, target: self, selector: "scrollToNext", userInfo: nil, repeats: true)
+		NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSDefaultRunLoopMode)
 	}
 	
 	public func numberOfFocus(set: () -> Int) {
@@ -70,12 +77,24 @@ public class ATLoopView: UIView {
 		self.touchUpFocus = set
 	}
 	
-	public func checkUpSchedule(set: (schedule: Int) -> Void) {
+	public func checkUpSchedule(set: (schedule: CGFloat) -> Void) {
 		self.checkUpSchedule = set
 	}
 	
+	public func reloadData() {
+		collectionView.reloadData()
+	}
+	
 	func scrollToNext() {
-		collectionView.scrollRectToVisible(CGRectMake(collectionView.contentOffset.x + bounds.width, 0, bounds.width, bounds.height), animated: true)
+		if amount > 1 {
+			collectionView.scrollRectToVisible(CGRectMake(collectionView.contentOffset.x + bounds.width, 0, bounds.width, bounds.height), animated: true)
+		} else {
+			timer.invalidate()
+		}
+	}
+	
+	deinit {
+		timer.invalidate()
 	}
 	
 }
@@ -84,29 +103,19 @@ public class ATLoopView: UIView {
 extension ATLoopView: UICollectionViewDataSource {
 	
 	public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-		collectionView.contentOffset.x = bounds.width
+		collectionView.contentOffset.x = bounds.width * CGFloat(amount)
 		return 1
 	}
 	
 	public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return (numberOfFocus?() ?? 0) + 2
+		return amount * 3
 	}
 	
 	public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCellWithReuseIdentifier("idCell", forIndexPath: indexPath)
-		let count = (numberOfFocus?() ?? 0) + 2
 		
 		cell.backgroundColor = .clearColor()
-		cell.backgroundView = {
-			switch indexPath.row {
-			case 0:
-				return self.focusAtIndex?(count - 3)
-			case count - 1:
-				return self.focusAtIndex?(0)
-			default:
-				return self.focusAtIndex?(indexPath.row - 1)
-			}
-		}()
+		cell.backgroundView = focusAtIndex?(indexPath.item % amount)
 		
 		return cell
 	}
@@ -115,17 +124,20 @@ extension ATLoopView: UICollectionViewDataSource {
 extension ATLoopView: UICollectionViewDelegate {
 	
 	public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-		self.touchUpFocus?(indexPath.row - 1)
+		self.touchUpFocus?(indexPath.item % amount)
 	}
 	
 	public func scrollViewDidScroll(scrollView: UIScrollView) {
-		let progress = scrollView.contentOffset.x
-		
-		if progress == 0.0 {
-			scrollView.contentOffset.x = scrollView.contentSize.width - bounds.width * 2
-		} else if progress == scrollView.contentSize.width - bounds.width {
-			scrollView.contentOffset.x = self.bounds.width
+		let offSet = scrollView.contentOffset.x
+		let factWidth = bounds.width * CGFloat(amount)
+
+		if offSet == factWidth - bounds.width {
+			collectionView.contentOffset.x = bounds.width * CGFloat(amount * 2 - 1)
+		} else if offSet == factWidth * 2 {
+			collectionView.contentOffset.x = bounds.width * CGFloat(amount)
 		}
+		
+		checkUpSchedule?((offSet / factWidth - CGFloat(Int(offSet / factWidth))) * CGFloat(amount))
 		
 	}
 	

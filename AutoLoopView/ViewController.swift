@@ -16,14 +16,14 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 		
 		loopView.numberOfFocus { () -> Int in
-			return 5
+			return 3
 		}
 		
 		loopView.focusAtIndex { (index) -> UIView in
 			let label = UILabel()
 			label.text = "\(index)"
 			label.textAlignment = .Center
-			label.backgroundColor = UIColor(hue: CGFloat(index * 60)/360.0,
+			label.backgroundColor = UIColor(hue: CGFloat(index * 360 / 2)/360.0,
 									 saturation: 1.0,
 									 brightness: 1.0,
 										  alpha: 1.0)

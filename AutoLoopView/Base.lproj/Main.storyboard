@@ -25,6 +25,11 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="3wz-Pz-9wg" secondAttribute="height" multiplier="12:5" id="z6i-Aw-BkS"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="loopDuration">
+                                        <real key="value" value="7"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
