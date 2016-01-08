@@ -10,11 +10,11 @@ create a new branch with named like (Modification-YourName) when commit the code
 
 ## Installation
 
-> **Download [Zip file]("https://github.com/Alamofire/Alamofire/archive/master.zip") and insert into your project or copy source file and paste in your project.
+> Download [Zip file]("https://github.com/Alamofire/Alamofire/archive/master.zip") and insert into your project or copy source file and paste in your project.
 
 ## Usage
 
-> **ATLoopView inherit UIView, and there is an UICollectionView in ATLoopView. so when you use Storyboard to creat this view, please pull UIView and make its superclass as ATLoopView
+> ATLoopView inherit UIView, and there is an UICollectionView in ATLoopView. so when you use Storyboard to creat this view, please pull UIView and make its superclass as ATLoopView
 
 ### Making Models And Initialize ATLoopView
 
@@ -57,6 +57,6 @@ loopView.checkUpSchedule { (schedule) -> Void in
 	print(schedule)
 }
 ```
-## My Eamil
+## My Email
 
 - 1642018345@qq.com or jjinglin@gmail.com
