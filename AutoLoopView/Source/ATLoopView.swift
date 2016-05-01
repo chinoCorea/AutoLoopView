@@ -61,7 +61,7 @@ public class ATLoopView: UIView {
 		
 		self.addSubview(collectionView)
 		
-		timer = NSTimer(timeInterval: loopDuration, target: self, selector: "scrollToNext", userInfo: nil, repeats: true)
+		timer = NSTimer(timeInterval: loopDuration, target: self, selector: #selector(ATLoopView.scrollToNext), userInfo: nil, repeats: true)
 		NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSDefaultRunLoopMode)
 	}
 	
