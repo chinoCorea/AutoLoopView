@@ -9,8 +9,6 @@
 import UIKit
 
 public class ATLoopView: UIView {
-
-	@IBInspectable private var loopDuration: Double = 7.0
 	
 	private let collectionView = UICollectionView(frame: CGRectZero,
 								   collectionViewLayout: UICollectionViewFlowLayout())
@@ -25,8 +23,7 @@ public class ATLoopView: UIView {
 		return numberOfFocus?() ?? 0
 	}
 	
-	public init(frame: CGRect, loopDuration: NSTimeInterval) {
-		self.loopDuration = loopDuration
+	public override init(frame: CGRect) {
 		super.init(frame: frame)
 		initialize()
 	}
@@ -61,7 +58,7 @@ public class ATLoopView: UIView {
 		
 		self.addSubview(collectionView)
 		
-		timer = NSTimer(timeInterval: loopDuration, target: self, selector: #selector(ATLoopView.scrollToNext), userInfo: nil, repeats: true)
+		timer = NSTimer(timeInterval: 5.0, target: self, selector: #selector(ATLoopView.scrollToNext), userInfo: nil, repeats: true)
 		NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSDefaultRunLoopMode)
 	}
 	

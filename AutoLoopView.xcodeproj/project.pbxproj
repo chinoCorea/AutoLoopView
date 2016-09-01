@@ -12,6 +12,7 @@
 		1868491C1C3CEF1C009EC87A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1868491A1C3CEF1C009EC87A /* Main.storyboard */; };
 		1868491E1C3CEF1C009EC87A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1868491D1C3CEF1C009EC87A /* Assets.xcassets */; };
 		1868492B1C3CEFBD009EC87A /* ATLoopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1868492A1C3CEFBD009EC87A /* ATLoopView.swift */; };
+		18686EA11D74363000E3E98C /* SCLoopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18686EA01D74363000E3E98C /* SCLoopView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		1868491D1C3CEF1C009EC87A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		186849221C3CEF1C009EC87A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1868492A1C3CEFBD009EC87A /* ATLoopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATLoopView.swift; sourceTree = "<group>"; };
+		18686EA01D74363000E3E98C /* SCLoopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCLoopView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				1868492A1C3CEFBD009EC87A /* ATLoopView.swift */,
+				18686EA01D74363000E3E98C /* SCLoopView.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -153,6 +156,7 @@
 			files = (
 				1868492B1C3CEFBD009EC87A /* ATLoopView.swift in Sources */,
 				186849191C3CEF1C009EC87A /* ViewController.swift in Sources */,
+				18686EA11D74363000E3E98C /* SCLoopView.swift in Sources */,
 				186849171C3CEF1C009EC87A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,6 +301,7 @@
 				186849271C3CEF1C009EC87A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
